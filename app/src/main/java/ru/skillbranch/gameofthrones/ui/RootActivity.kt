@@ -16,7 +16,16 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        val textView = findViewById<TextView>(R.id.textView)
+
+        Loader.isFinished.observe(this, {
+            textView.text = "Data loaded!"
+        })
         Loader.load()
     }
 }

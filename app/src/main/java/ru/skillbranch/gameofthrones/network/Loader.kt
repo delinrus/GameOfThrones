@@ -1,5 +1,6 @@
 package ru.skillbranch.gameofthrones.network
 
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
@@ -8,6 +9,8 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 object Loader {
     var houses = mutableListOf<HouseRes>()
     var characters = mutableListOf<CharacterRes>()
+    val isFinished = MutableLiveData<Boolean>()
+
 
     private suspend fun loadHouses() {
         val result = mutableListOf<Deferred<List<HouseRes>>>()
@@ -34,6 +37,7 @@ object Loader {
         CoroutineScope(Dispatchers.IO).launch {
             loadHouses()
             loadCharacters()
+            isFinished.postValue(true)
         }
     }
 }
