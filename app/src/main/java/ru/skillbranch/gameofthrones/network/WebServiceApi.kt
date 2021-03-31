@@ -1,5 +1,6 @@
 package ru.skillbranch.gameofthrones.network
 
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,8 +10,8 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 
 interface WebServiceApi {
     @GET("characters/{id}")
-    fun getCharacterByID(@Path("id") id: Int): Call<CharacterRes>
+    fun getCharacterByID(@Path("id") id: Int): Deferred<CharacterRes>
 
     @GET("houses")
-    fun getHouseByName(@Query("name") name: String): Call<List<HouseRes>>
+    fun getHouseByName(@Query("name") name: String): Deferred<List<HouseRes>>
 }
