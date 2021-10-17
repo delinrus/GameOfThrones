@@ -20,12 +20,12 @@ class RootActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        val textView = findViewById<TextView>(R.id.textView)
-
-        Loader.isFinished.observe(this, {
-            textView.text = "Data loaded!"
-        })
-        Loader.load()
+//
+//        val textView = findViewById<TextView>(R.id.textView)
+//
+//        Loader.isFinished.observe(this, {
+//            textView.text = "Data loaded!"
+//        })
+//        Loader.load()
     }
 }
