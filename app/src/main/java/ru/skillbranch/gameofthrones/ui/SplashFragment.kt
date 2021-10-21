@@ -1,9 +1,12 @@
 package ru.skillbranch.gameofthrones.ui
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.CycleInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.skillbranch.gameofthrones.databinding.FragmentSplashBinding
@@ -25,7 +28,18 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.splashImage.setOnClickListener {
+
+        val va = ValueAnimator.ofFloat(0.5f, 0f).apply {
+            interpolator = CycleInterpolator(2f )
+            duration = 4000
+            repeatCount = Animation.INFINITE
+        }
+        va.addUpdateListener { binding.splashRedOverlay.alpha = it.animatedValue as Float }
+        va.start()
+
+        binding.splashRedOverlay.setOnClickListener {
+            va.removeAllUpdateListeners()
+            va.cancel()
             findNavController().navigate(
                 SplashFragmentDirections.actionSplashFragmentToHouseFragment()
             )
