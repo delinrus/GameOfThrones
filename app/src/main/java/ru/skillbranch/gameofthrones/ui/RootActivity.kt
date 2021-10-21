@@ -1,22 +1,49 @@
 package ru.skillbranch.gameofthrones.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentContainerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.room.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.skillbranch.gameofthrones.R
-import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
-import ru.skillbranch.gameofthrones.network.Loader
-import ru.skillbranch.gameofthrones.network.NetworkService
+import ru.skillbranch.gameofthrones.data.local.entities.House
+import ru.skillbranch.gameofthrones.db.AppDatabase
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "populus-database"
+        ).build()
+
+        val house = House(
+            id = "2",
+            name = "Name",
+            region = "Region",
+            coatOfArms = "",
+            words = "",
+            titles = "",
+            seats = "",
+            currentLord = "Vasia", //rel
+            heir = "2", //rel
+            overlord = "",
+            founded = "",
+            founder = "", //rel
+            diedOut = "",
+            ancestralWeapons = ""
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            //db.getHouseDao().insertAll(house)
+            val houseFromDb = db.getHouseDao().getAllHouses()
+            print(houseFromDb)
+        }
+
     }
 
     override fun onStart() {
