@@ -13,6 +13,7 @@ import ru.skillbranch.gameofthrones.network.NetworkService
 object RootRepository {
 
     private val webServiceApi = NetworkService.getWebServiceApi()
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     /**
      * Получение данных о всех домах из сети
@@ -20,7 +21,7 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getAllHouses(result: (houses: List<HouseRes>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             val houses = mutableListOf<HouseRes>()
             for (page in 1..1000) {
                 val deferredData = webServiceApi.getHouses(page).await()
@@ -38,7 +39,14 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getNeedHouses(vararg houseNames: String, result: (houses: List<HouseRes>) -> Unit) {
-        //TODO implement me
+        scope.launch {
+            val houses = mutableListOf<HouseRes>()
+            houseNames.forEach {
+                val deferredData = webServiceApi.getHouseByName(it).await()
+                houses.addAll(deferredData)
+            }
+            result(houses)
+        }
     }
 
     /**
