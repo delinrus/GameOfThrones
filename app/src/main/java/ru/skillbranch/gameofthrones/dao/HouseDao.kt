@@ -12,6 +12,9 @@ interface HouseDao {
     fun insertAll(vararg houses: House)
 
     @Query("SELECT * FROM house")
-    fun getAllHouses() : List<House>
+    fun getAll(): List<House>
+
+    @Query("DELETE FROM house")
+    fun deleteAll()
 
 }
