@@ -1,14 +1,14 @@
 package ru.skillbranch.gameofthrones.repositories
 
 import androidx.annotation.VisibleForTesting
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 import ru.skillbranch.gameofthrones.network.NetworkService
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 object RootRepository {
 
@@ -59,7 +59,26 @@ object RootRepository {
         vararg houseNames: String,
         result: (houses: List<Pair<HouseRes, List<CharacterRes>>>) -> Unit
     ) {
-        //TODO implement me
+        scope.launch {
+            val housesWithCharacters = mutableListOf<Pair<HouseRes, List<CharacterRes>>>()
+            val houses = mutableListOf<HouseRes>()
+            suspendCoroutine<Unit> { continuation ->
+                getNeedHouses(*houseNames) {
+                    houses.addAll(it)
+                    continuation.resume(Unit)
+                }
+            }
+            houses.forEach {
+                val characters = mutableListOf<Deferred<CharacterRes>>()
+                it.swornMembers.forEach { member ->
+                    val characterId = member.split("/").last().toInt()
+                    val deferredCharacter = webServiceApi.getCharacterByID(characterId)
+                    characters.add(deferredCharacter)
+                }
+                housesWithCharacters.add(it to characters.awaitAll())
+            }
+            result(housesWithCharacters)
+        }
     }
 
     /**
