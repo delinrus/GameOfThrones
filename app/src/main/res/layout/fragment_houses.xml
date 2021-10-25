@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.HousesFragment">
+    tools:context=".ui.houses.HousesFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

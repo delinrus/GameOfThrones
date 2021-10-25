@@ -1,7 +1,6 @@
-package ru.skillbranch.gameofthrones.data
+package ru.skillbranch.gameofthrones.data.local
 
 import androidx.room.TypeConverter
-import kotlin.text.StringBuilder
 
 class StringListConverter {
 

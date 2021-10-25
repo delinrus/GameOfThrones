@@ -1,14 +1,12 @@
-package ru.skillbranch.gameofthrones.db
+package ru.skillbranch.gameofthrones.data.local
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ru.skillbranch.gameofthrones.dao.CharacterDao
-import ru.skillbranch.gameofthrones.dao.HouseDao
-import ru.skillbranch.gameofthrones.data.StringListConverter
+import ru.skillbranch.gameofthrones.data.local.dao.CharacterDao
+import ru.skillbranch.gameofthrones.data.local.dao.HouseDao
 import ru.skillbranch.gameofthrones.data.local.entities.Character
 import ru.skillbranch.gameofthrones.data.local.entities.House
 

@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.dao
+package ru.skillbranch.gameofthrones.data.local.dao
 
 import androidx.room.Insert
 import androidx.room.RawQuery

@@ -6,8 +6,8 @@ import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.data.local.entities.*
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
-import ru.skillbranch.gameofthrones.db.AppDatabase
-import ru.skillbranch.gameofthrones.network.NetworkService
+import ru.skillbranch.gameofthrones.data.local.AppDatabase
+import ru.skillbranch.gameofthrones.data.remote.NetworkService
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 

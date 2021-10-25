@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.network
+package ru.skillbranch.gameofthrones.data.remote
 
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET

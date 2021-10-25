@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.network
+package ru.skillbranch.gameofthrones.data.remote
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

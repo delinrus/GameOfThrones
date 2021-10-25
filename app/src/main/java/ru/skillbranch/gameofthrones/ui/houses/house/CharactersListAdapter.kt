@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.ui
+package ru.skillbranch.gameofthrones.ui.houses.house
 
 import android.view.LayoutInflater
 import android.view.View

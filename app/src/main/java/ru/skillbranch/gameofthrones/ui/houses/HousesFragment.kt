@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.ui
+package ru.skillbranch.gameofthrones.ui.houses
 
 import android.app.Activity
 import android.os.Bundle
@@ -15,14 +15,14 @@ import ru.skillbranch.gameofthrones.R
 
 class HousesFragment : Fragment() {
 
+    private lateinit var myContext: FragmentActivity
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_houses, container, false)
     }
-
-    private lateinit var myContext: FragmentActivity
 
     override fun onAttach(activity: Activity) {
         myContext = activity as FragmentActivity
