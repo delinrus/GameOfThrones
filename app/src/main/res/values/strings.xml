@@ -3,4 +3,6 @@
     <string name="menu_title_search">Search</string>
     <string name="splash_image">Splash image</string>
     <string name="splash_red_overlay">Splash red overlay</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
