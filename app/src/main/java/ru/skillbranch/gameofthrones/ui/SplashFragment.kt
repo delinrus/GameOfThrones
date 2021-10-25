@@ -41,7 +41,7 @@ class SplashFragment : Fragment() {
             va.removeAllUpdateListeners()
             va.cancel()
             findNavController().navigate(
-                SplashFragmentDirections.actionSplashFragmentToHouseFragment()
+                SplashFragmentDirections.actionSplashFragmentToHousesFragment()
             )
         }
     }
