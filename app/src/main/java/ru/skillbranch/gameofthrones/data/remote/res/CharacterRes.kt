@@ -1,5 +1,8 @@
 package ru.skillbranch.gameofthrones.data.remote.res
 
+import ru.skillbranch.gameofthrones.data.local.entities.Character
+import ru.skillbranch.gameofthrones.extensions.getIdFromUrl
+
 data class CharacterRes(
     val url: String,
     val name: String,
@@ -19,4 +22,19 @@ data class CharacterRes(
     val playedBy: List<String> = listOf()
 ) {
     var houseId: String = ""
+
+    fun toCharacter() = Character(
+        id = url.getIdFromUrl(),
+        name = name,
+        gender = gender,
+        culture = culture,
+        born = born,
+        died = died,
+        titles = titles,
+        aliases = aliases,
+        father = father.getIdFromUrl(),
+        mother = mother.getIdFromUrl(),
+        spouse = spouse.getIdFromUrl(),
+        houseId = houseId
+    )
 }

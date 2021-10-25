@@ -17,6 +17,6 @@ class StringListConverter {
 
     @TypeConverter
     fun toList(str: String) : List<String> {
-        return str.split(";")
+        return str.split(";").filter { it -> it.isNotBlank() }
     }
 }

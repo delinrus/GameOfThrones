@@ -3,6 +3,8 @@ package ru.skillbranch.gameofthrones.data.local.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
+import ru.skillbranch.gameofthrones.extensions.getIdFromUrl
+import java.util.regex.Pattern
 
 @Entity
 data class House(
@@ -21,25 +23,4 @@ data class House(
     val founder: String, //rel
     val diedOut: String,
     val ancestralWeapons: String
-) {
-    constructor(houseRes: HouseRes) : this(
-        houseRes.url.getIdFromUrl(), // houseRes.id,
-        houseRes.name,
-        houseRes.region,
-        houseRes.coatOfArms,
-        houseRes.words,
-        houseRes.titles[0],
-        houseRes.seats[0],
-        houseRes.currentLord.getIdFromUrl(),
-        houseRes.heir.getIdFromUrl(),
-        houseRes.overlord,
-        houseRes.founded,
-        houseRes.founder.getIdFromUrl(),
-        houseRes.diedOut,
-        houseRes.ancestralWeapons[0]
-    )
-}
-
-fun String.getIdFromUrl() : String {
-    return this.split("/").last()
-}
+)
