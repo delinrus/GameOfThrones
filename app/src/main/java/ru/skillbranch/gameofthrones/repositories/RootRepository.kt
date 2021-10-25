@@ -2,10 +2,13 @@ package ru.skillbranch.gameofthrones.repositories
 
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
+import ru.skillbranch.gameofthrones.App
+import ru.skillbranch.gameofthrones.AppConfig
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
+import ru.skillbranch.gameofthrones.db.AppDatabase
 import ru.skillbranch.gameofthrones.network.NetworkService
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -14,6 +17,7 @@ object RootRepository {
 
     private val webServiceApi = NetworkService.getWebServiceApi()
     private val scope = CoroutineScope(Dispatchers.IO)
+    private val db = AppDatabase.getInstance(App.applicationContext())
 
     /**
      * Получение данных о всех домах из сети
