@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import ru.skillbranch.gameofthrones.AppConfig
 import ru.skillbranch.gameofthrones.HouseFragment
+import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 
 class HousePageAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -18,6 +19,6 @@ class HousePageAdapter(fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return position.toString()
+        return HouseRes.parseShortName(AppConfig.NEED_HOUSES[position])
     }
 }
