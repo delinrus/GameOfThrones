@@ -168,7 +168,7 @@ object RootRepository {
     suspend fun isUpToDate(): Boolean {
         return suspendCoroutine { continuation ->
             isNeedUpdate() {
-                continuation.resume(it)
+                continuation.resume(!it)
             }
         }
     }
