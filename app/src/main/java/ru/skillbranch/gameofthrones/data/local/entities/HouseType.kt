@@ -1,13 +1,15 @@
 package ru.skillbranch.gameofthrones.data.local.entities
 
-enum class HouseType(val shortName: String) {
+import ru.skillbranch.gameofthrones.R
 
-    STARK("Stark"),
-    LANNISTER("Lannister"),
-    TARGARYEN("Targaryen"),
-    GREYJOY("Greyjoy"),
-    TYRELL("Tyrell"),
-    BARATHEON("Baratheon"),
-    NUMERO_MARTELL("Nymeros Martell")
+enum class HouseType(val shortName: String, val imageRes: Int) {
+
+    STARK("Stark", R.drawable.stark_icon),
+    LANNISTER("Lannister", R.drawable.lanister_icon),
+    TARGARYEN("Targaryen", R.drawable.targaryen_icon),
+    BARATHEON("Baratheon", R.drawable.baratheon_icon),
+    GREYJOY("Greyjoy", R.drawable.greyjoy_icon),
+    NUMERO_MARTELL("Nymeros Martell", R.drawable.martel_icon),
+    TYRELL("Tyrell", R.drawable.tyrel_icon)
 
 }

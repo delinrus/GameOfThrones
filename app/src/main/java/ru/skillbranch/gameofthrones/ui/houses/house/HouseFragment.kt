@@ -27,7 +27,7 @@ class HouseFragment(val house: HouseType) : Fragment() {
         viewModel = ViewModelProvider(this)[HouseViewModel::class.java]
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
-        val adapter = CharactersListAdapter()
+        val adapter = CharactersListAdapter(house)
         recyclerView.adapter = adapter
 
         viewModel.characterList.observe(viewLifecycleOwner){

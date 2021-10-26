@@ -15,7 +15,7 @@ class HouseViewModel: ViewModel() {
 
     fun loadCharactersList(houseType: HouseType) {
         RootRepository.findCharactersByHouseName(houseType.shortName) {
-            _characterList.value = it
+            _characterList.postValue(it)
         }
     }
 }

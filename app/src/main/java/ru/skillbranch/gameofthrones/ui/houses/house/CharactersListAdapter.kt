@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
+import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 
-class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
+class CharactersListAdapter(val houseType: HouseType) : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
 
     var characters = listOf<CharacterItem>()
         set(value) {
@@ -29,7 +30,7 @@ class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.Charact
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.tvCharacterDesctiption.text = characters[position].titles.toString()
         holder.tvCharacterName.text = characters[position].name
-        holder.ivHouseLogo.setImageResource(R.drawable.targaryen_icon)
+        holder.ivHouseLogo.setImageResource(houseType.imageRes)
     }
 
     override fun getItemCount(): Int {
