@@ -1,6 +1,8 @@
 package ru.skillbranch.gameofthrones.ui
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.CycleInterpolator
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import ru.skillbranch.gameofthrones.databinding.FragmentSplashBinding
 
 
@@ -22,6 +23,17 @@ class SplashFragment : Fragment() {
         interpolator = CycleInterpolator(2f )
         duration = 4000
         repeatCount = Animation.INFINITE
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
     }
 
     override fun onCreateView(
