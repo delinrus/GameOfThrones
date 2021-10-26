@@ -7,8 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 
 class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
+
+    var characters = listOf<CharacterItem>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -20,13 +27,13 @@ class CharactersListAdapter : RecyclerView.Adapter<CharactersListAdapter.Charact
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.tvCharacterDesctiption.text = "Great Lord of winterfell"
-        holder.tvCharacterName.text = "Dany Targarian"
+        holder.tvCharacterDesctiption.text = characters[position].titles.toString()
+        holder.tvCharacterName.text = characters[position].name
         holder.ivHouseLogo.setImageResource(R.drawable.targaryen_icon)
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return characters.size
     }
 
     class CharacterViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

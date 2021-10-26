@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 
 
-class HouseFragment : Fragment() {
+class HouseFragment(val house: HouseType) : Fragment() {
+
+    private lateinit var viewModel: HouseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,8 +23,16 @@ class HouseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
-        recyclerView.adapter = CharactersListAdapter()
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[HouseViewModel::class.java]
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+        val adapter = CharactersListAdapter()
+        recyclerView.adapter = adapter
+
+        viewModel.characterList.observe(viewLifecycleOwner){
+            adapter.characters = it
+        }
+        viewModel.loadCharactersList(house)
     }
 }
