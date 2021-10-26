@@ -3,11 +3,12 @@ package ru.skillbranch.gameofthrones.repositories
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
 import ru.skillbranch.gameofthrones.App
+import ru.skillbranch.gameofthrones.AppConfig
+import ru.skillbranch.gameofthrones.data.local.AppDatabase
 import ru.skillbranch.gameofthrones.data.local.entities.*
+import ru.skillbranch.gameofthrones.data.remote.NetworkService
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
-import ru.skillbranch.gameofthrones.data.local.AppDatabase
-import ru.skillbranch.gameofthrones.data.remote.NetworkService
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -161,6 +162,27 @@ object RootRepository {
         scope.launch {
             val countOfRecords = db.getHouseDao().count() + db.getCharacterDao().count()
             result(countOfRecords == 0)
+        }
+    }
+
+    suspend fun isUpToDate(): Boolean {
+        return suspendCoroutine { continuation ->
+            isNeedUpdate() {
+                continuation.resume(it)
+            }
+        }
+    }
+
+    suspend fun sync() {
+        suspendCoroutine<Unit> { continuation ->
+            getNeedHouseWithCharacters(*AppConfig.NEED_HOUSES) {
+                val (houses, characters) = it.unzip()
+                insertHouses(houses) {
+                    insertCharacters(characters.flatten()) {
+                        continuation.resume(Unit)
+                    }
+                }
+            }
         }
     }
 }

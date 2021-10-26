@@ -18,6 +18,12 @@ class SplashFragment : Fragment() {
     private val binding: FragmentSplashBinding
         get() = _binding ?: throw RuntimeException("FragmentChooseLevelBinding == null")
 
+    private val va = ValueAnimator.ofFloat(0.5f, 0f).apply {
+        interpolator = CycleInterpolator(2f )
+        duration = 4000
+        repeatCount = Animation.INFINITE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,26 +34,14 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val va = ValueAnimator.ofFloat(0.5f, 0f).apply {
-            interpolator = CycleInterpolator(2f )
-            duration = 4000
-            repeatCount = Animation.INFINITE
-        }
         va.addUpdateListener { binding.splashRedOverlay.alpha = it.animatedValue as Float }
         va.start()
-
-        binding.splashRedOverlay.setOnClickListener {
-            va.removeAllUpdateListeners()
-            va.cancel()
-            findNavController().navigate(
-                SplashFragmentDirections.actionSplashFragmentToHousesFragment()
-            )
-        }
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        va.removeAllUpdateListeners()
+        va.cancel()
         _binding = null
+        super.onDestroyView()
     }
 }
