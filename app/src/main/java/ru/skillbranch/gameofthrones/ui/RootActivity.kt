@@ -23,7 +23,7 @@ class RootActivity : AppCompatActivity() {
 
     fun observeSynchronization() {
         viewModel.isDataSynchronized.observe(this) {
-            when (it) {
+            when (it?.getContentIfNotHandled()) {
                 RootViewModel.SynchronizationResult.FINISHED -> {
                     findNavController(this, R.id.nav_host_fragment).navigate(
                         SplashFragmentDirections.actionSplashFragmentToHousesFragment()

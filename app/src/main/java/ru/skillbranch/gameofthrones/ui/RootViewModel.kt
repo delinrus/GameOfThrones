@@ -12,12 +12,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.skillbranch.gameofthrones.Event
 import ru.skillbranch.gameofthrones.repositories.RootRepository
+import ru.skillbranch.gameofthrones.ui.RootViewModel.SynchronizationResult.*
 
 class RootViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _isDataSynchronized = MutableLiveData<SynchronizationResult>()
-    val isDataSynchronized: LiveData<SynchronizationResult>
+    private val _isDataSynchronized = MutableLiveData<Event<SynchronizationResult>>()
+    val isDataSynchronized: LiveData<Event<SynchronizationResult>>
         get() = _isDataSynchronized
 
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -31,12 +33,12 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
                 if (isNetworkAvailable(getApplication())) {
                     RootRepository.sync()
                 } else {
-                    _isDataSynchronized.postValue(SynchronizationResult.NO_CONNECTION)
+                    _isDataSynchronized.postValue(Event(NO_CONNECTION))
                     return@launch
                 }
             }
             delayJob.join()
-            _isDataSynchronized.postValue(SynchronizationResult.FINISHED)
+            _isDataSynchronized.postValue(Event(FINISHED))
         }
     }
 
