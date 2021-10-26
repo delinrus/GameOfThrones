@@ -1,13 +1,14 @@
 package ru.skillbranch.gameofthrones.data.local.dao
 
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 
 abstract class BaseDao<T>(private val tableName: String) {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertAll(objects: List<T>)
 
     @RawQuery

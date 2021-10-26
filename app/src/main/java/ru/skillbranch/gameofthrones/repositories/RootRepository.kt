@@ -1,5 +1,6 @@
 package ru.skillbranch.gameofthrones.repositories
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
 import ru.skillbranch.gameofthrones.App
@@ -71,14 +72,18 @@ object RootRepository {
                     continuation.resume(Unit)
                 }
             }
-            houses.forEach {
-                val characters = mutableListOf<Deferred<CharacterRes>>()
-                it.swornMembers.forEach { member ->
+            houses.forEach { house ->
+                val charactersDeterred = mutableListOf<Deferred<CharacterRes>>()
+                house.swornMembers.forEach { member ->
                     val characterId = member.split("/").last().toInt()
                     val deferredCharacter = webServiceApi.getCharacterByID(characterId)
-                    characters.add(deferredCharacter)
+                    charactersDeterred.add(deferredCharacter)
                 }
-                housesWithCharacters.add(it to characters.awaitAll())
+                val characters = charactersDeterred.awaitAll()
+                characters.forEach {
+                    it.houseId = HouseRes.parseShortName(house.name)
+                }
+                housesWithCharacters.add(house to characters)
             }
             result(housesWithCharacters)
         }
