@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentHousesBinding
 
 
@@ -38,5 +40,24 @@ class HousesFragment : Fragment() {
         val pageAdapter = HousePageAdapter(myContext.supportFragmentManager)
         binding.pager.adapter = pageAdapter
         binding.tabs.setupWithViewPager(binding.pager)
+        binding.pager.addOnPageChangeListener(PagerListener())
+    }
+
+    inner class PagerListener : ViewPager.OnPageChangeListener {
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+        }
+
+        override fun onPageSelected(position: Int) {
+            binding.appBarLayout.setBackgroundColor(
+                context?.getColor(HouseType.values()[position].colorRes) ?: 0
+            )
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+        }
     }
 }
