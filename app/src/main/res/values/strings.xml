@@ -3,7 +3,7 @@
     <string name="menu_title_search">Поиск</string>
     <string name="splash_image">Splash image</string>
     <string name="splash_red_overlay">Splash red overlay</string>
-    <string name="no_connection_toast">Интернет недоступен - приложение не может быть запущенно.
+    <string name="no_connection_msg">Интернет недоступен - приложение не может быть запущенно.
         Подключитесь к интернету и перезапустите приложение
     </string>
 </resources>

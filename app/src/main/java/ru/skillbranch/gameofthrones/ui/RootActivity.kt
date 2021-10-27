@@ -1,15 +1,17 @@
 package ru.skillbranch.gameofthrones.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import ru.skillbranch.gameofthrones.R
 
 class RootActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RootViewModel
+    private lateinit var containerView: FragmentContainerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +21,10 @@ class RootActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             viewModel.synchronizeData()
         }
+        containerView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
     }
 
-    fun observeSynchronization() {
+    private fun observeSynchronization() {
         viewModel.isDataSynchronized.observe(this) {
             when (it?.getContentIfNotHandled()) {
                 RootViewModel.SynchronizationResult.FINISHED -> {
@@ -30,10 +33,10 @@ class RootActivity : AppCompatActivity() {
                     )
                 }
                 RootViewModel.SynchronizationResult.NO_CONNECTION -> {
-                    Toast.makeText(
-                        applicationContext,
-                        resources.getString(R.string.no_connection_toast),
-                        Toast.LENGTH_LONG
+                    Snackbar.make(
+                        containerView,
+                        resources.getString(R.string.no_connection_msg),
+                        Snackbar.LENGTH_INDEFINITE
                     ).show()
                 }
             }
