@@ -11,9 +11,15 @@ import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 
 
-class HouseFragment(val house: HouseType) : Fragment() {
+class HouseFragment : Fragment() {
 
     private lateinit var viewModel: HouseViewModel
+    private lateinit var house: HouseType
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseParams()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +36,27 @@ class HouseFragment(val house: HouseType) : Fragment() {
         val adapter = CharactersListAdapter(house)
         recyclerView.adapter = adapter
 
-        viewModel.characterList.observe(viewLifecycleOwner){
+        viewModel.characterList.observe(viewLifecycleOwner) {
             adapter.characters = it
         }
         viewModel.loadCharactersList(house)
+    }
+
+    private fun parseParams() {
+        val args = requireArguments()
+        house = args.getSerializable(HOUSE_TYPE) as HouseType
+    }
+
+    companion object {
+
+        private const val HOUSE_TYPE = "house_type"
+
+        fun newInstance(house: HouseType): HouseFragment {
+            return HouseFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(HOUSE_TYPE, house)
+                }
+            }
+        }
     }
 }

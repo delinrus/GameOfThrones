@@ -14,7 +14,7 @@ class HousePageAdapter(fm: FragmentManager) :
     }
 
     override fun getItem(position: Int): Fragment {
-        return HouseFragment(HouseType.values()[position])
+        return HouseFragment.newInstance(HouseType.values()[position])
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
