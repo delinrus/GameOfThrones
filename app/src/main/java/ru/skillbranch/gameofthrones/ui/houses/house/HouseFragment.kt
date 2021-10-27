@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
@@ -13,7 +13,7 @@ import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 
 class HouseFragment : Fragment() {
 
-    private lateinit var viewModel: HouseViewModel
+    private val viewModel: HouseViewModel by activityViewModels()
     private lateinit var house: HouseType
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +30,6 @@ class HouseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[HouseViewModel::class.java]
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
         val adapter = CharactersListAdapter(house)
         recyclerView.adapter = adapter
@@ -39,7 +37,6 @@ class HouseFragment : Fragment() {
         viewModel.characterList.observe(viewLifecycleOwner) {
             adapter.characters = it
         }
-        viewModel.loadCharactersList(house)
     }
 
     private fun parseParams() {
