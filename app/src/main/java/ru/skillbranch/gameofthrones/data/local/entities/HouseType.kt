@@ -9,7 +9,7 @@ enum class HouseType(val shortName: String, val imageRes: Int) {
     TARGARYEN("Targaryen", R.drawable.targaryen_icon),
     BARATHEON("Baratheon", R.drawable.baratheon_icon),
     GREYJOY("Greyjoy", R.drawable.greyjoy_icon),
-    NUMERO_MARTELL("Nymeros Martell", R.drawable.martel_icon),
+    NUMERO_MARTELL("Martell", R.drawable.martel_icon),
     TYRELL("Tyrell", R.drawable.tyrel_icon)
 
 }

@@ -41,7 +41,7 @@ data class HouseRes(
     )
 
     companion object {
-        private val pattern by lazy { Pattern.compile("^House (.*) of") }
+        private val pattern by lazy { Pattern.compile("(\\w*) of") }
 
         fun parseShortName(str: String): String {
             val matcher = pattern.matcher(str)
