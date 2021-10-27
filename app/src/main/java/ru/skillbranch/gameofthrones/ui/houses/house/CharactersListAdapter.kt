@@ -1,16 +1,14 @@
 package ru.skillbranch.gameofthrones.ui.houses.house
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
+import ru.skillbranch.gameofthrones.databinding.CharacterListItemBinding
 
-class CharactersListAdapter(val houseType: HouseType) : RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
+class CharactersListAdapter(val houseType: HouseType) :
+    RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
 
     var characters = listOf<CharacterItem>()
         set(value) {
@@ -19,27 +17,27 @@ class CharactersListAdapter(val houseType: HouseType) : RecyclerView.Adapter<Cha
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.character_list_item,
+        val binding = CharacterListItemBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return CharacterViewHolder(view)
+        return CharacterViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.tvCharacterDesctiption.text = characters[position].titles.toString()
-        holder.tvCharacterName.text = characters[position].name
-        holder.ivHouseLogo.setImageResource(houseType.imageRes)
+        holder.binding.apply {
+            characterDescription.text = characters[position].titles.toString()
+            characterName.text = characters[position].name
+            houseLogo.setImageResource(houseType.imageRes)
+        }
     }
 
     override fun getItemCount(): Int {
         return characters.size
     }
 
-    class CharacterViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val ivHouseLogo = view.findViewById<ImageView>(R.id.house_logo)
-        val tvCharacterName = view.findViewById<TextView>(R.id.character_name)
-        val tvCharacterDesctiption = view.findViewById<TextView>(R.id.character_description)
-    }
+    class CharacterViewHolder(
+        val binding: CharacterListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 }
