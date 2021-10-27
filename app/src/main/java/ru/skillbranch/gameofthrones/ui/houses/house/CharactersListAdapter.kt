@@ -27,8 +27,14 @@ class CharactersListAdapter(val houseType: HouseType) :
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.binding.apply {
-            characterDescription.text = characters[position].titles.toString()
-            characterName.text = characters[position].name
+            val character = characters[position]
+
+            val akaList = character.titles + character.aliases
+            characterDescription.text = akaList.joinToString(separator = " • ") { it }
+
+            val name = character.name
+            characterName.text = if (name.isNotBlank()) name else "Information is unknown"
+
             houseLogo.setImageResource(houseType.imageRes)
         }
     }
