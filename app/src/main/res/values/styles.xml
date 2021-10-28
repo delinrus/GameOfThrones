@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<style name="expanded_app_bar" parent="@android:style/TextAppearance.Medium">
+<item name="android:textSize">48sp</item>
+<item name="android:textColor">#ffffff</item>
+<item name="android:textStyle">normal</item>
+</style>
+
+<style name="collapsed_app_bar" parent="@android:style/TextAppearance.Medium">
+<item name="android:textSize">20sp</item>
+<item name="android:textColor">#ffffff</item>
+<item name="android:textStyle">normal</item>
+</style>
+
+</resources>

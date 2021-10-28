@@ -15,7 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/stark_primary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleMarginBottom="90dp"
+            app:expandedTitleGravity="center_horizontal|bottom"
+            app:collapsedTitleTextAppearance="@style/collapsed_app_bar"
+            app:expandedTitleTextAppearance="@style/expanded_app_bar">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -23,22 +27,14 @@
                 android:contentDescription="Hose Image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/stark_coast_of_arms"
-                app:layout_collapseMode="parallax" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jon Snow"
-                android:textSize="50dp"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="100dp"
-                />
+                app:layout_collapseMode="parallax"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:title="Jon Snow"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
