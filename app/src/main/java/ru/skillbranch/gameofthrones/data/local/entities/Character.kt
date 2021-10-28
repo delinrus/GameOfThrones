@@ -3,6 +3,7 @@ package ru.skillbranch.gameofthrones.data.local.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -57,7 +58,7 @@ data class CharacterItem(
     val name: String,
     val titles: List<String>,
     val aliases: List<String>
-)
+) : Serializable
 
 data class CharacterFull(
     val id: String,

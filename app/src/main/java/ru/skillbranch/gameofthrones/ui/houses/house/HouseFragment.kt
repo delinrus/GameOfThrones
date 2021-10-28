@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
+import ru.skillbranch.gameofthrones.ui.houses.HousesFragmentDirections
 
 
 class HouseFragment : Fragment() {
@@ -30,9 +32,18 @@ class HouseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+        prepareRecyclerView(view.findViewById(R.id.recycler))
+    }
+
+    private fun prepareRecyclerView(recyclerView: RecyclerView) {
         val adapter = CharactersListAdapter(house)
         recyclerView.adapter = adapter
+
+        adapter.onCharacterItemClickListener = {
+            findNavController().navigate(
+                HousesFragmentDirections.actionHousesFragmentToCharacterFragment(it)
+            )
+        }
 
         viewModel.characterList.observe(viewLifecycleOwner) {
             adapter.characters = it

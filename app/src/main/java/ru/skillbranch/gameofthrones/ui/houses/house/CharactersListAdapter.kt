@@ -10,6 +10,8 @@ import ru.skillbranch.gameofthrones.databinding.CharacterListItemBinding
 class CharactersListAdapter(val houseType: HouseType) :
     RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>() {
 
+    var onCharacterItemClickListener: ((CharacterItem) -> Unit)? = null
+
     var characters = listOf<CharacterItem>()
         set(value) {
             field = value
@@ -36,6 +38,10 @@ class CharactersListAdapter(val houseType: HouseType) :
             characterName.text = if (name.isNotBlank()) name else "Information is unknown"
 
             houseLogo.setImageResource(houseType.imageRes)
+        }
+
+        holder.binding.root.setOnClickListener {
+            onCharacterItemClickListener?.invoke(characters[position])
         }
     }
 

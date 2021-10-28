@@ -56,7 +56,7 @@ class HousesFragment : Fragment() {
             }
         })
 
-        val pageAdapter = HousePageAdapter(myContext.supportFragmentManager)
+        val pageAdapter = HousePageAdapter(childFragmentManager)
         binding.pager.adapter = pageAdapter
         binding.tabs.setupWithViewPager(binding.pager)
         val pageListener = PagerListener()

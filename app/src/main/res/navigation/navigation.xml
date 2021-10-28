@@ -27,7 +27,11 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="ru.skillbranch.gameofthrones.ui.houses.house.CharacterFragment"
+        android:name="ru.skillbranch.gameofthrones.ui.houses.character.CharacterFragment"
         android:label="fragment_character"
-        tools:layout="@layout/fragment_character" />
+        tools:layout="@layout/fragment_character" >
+        <argument
+            android:name="characterItem"
+            app:argType="ru.skillbranch.gameofthrones.data.local.entities.CharacterItem" />
+    </fragment>
 </navigation>
