@@ -31,7 +31,10 @@
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" >
         <argument
-            android:name="characterItem"
-            app:argType="ru.skillbranch.gameofthrones.data.local.entities.CharacterItem" />
+            android:name="characterId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_characterFragment_self"
+            app:destination="@id/characterFragment" />
     </fragment>
 </navigation>

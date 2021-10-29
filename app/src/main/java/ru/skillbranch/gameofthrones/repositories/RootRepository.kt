@@ -182,13 +182,24 @@ object RootRepository {
         }
     }
 
+    // Only for test purpose since the server not provides information about parent
+    fun updateSomeCharactersToHaveParents(complete: () -> Unit) {
+        scope.launch {
+            val aria = db.getCharacterDao().getById("148")
+            db.getCharacterDao().insert(aria.copy(mother = "16", father = "206"))
+            complete()
+        }
+    }
+
     suspend fun sync() {
         suspendCoroutine<Unit> { continuation ->
             getNeedHouseWithCharacters(*AppConfig.NEED_HOUSES) {
                 val (houses, characters) = it.unzip()
                 insertHouses(houses) {
                     insertCharacters(characters.flatten()) {
-                        continuation.resume(Unit)
+                        updateSomeCharactersToHaveParents() {
+                            continuation.resume(Unit)
+                        }
                     }
                 }
             }

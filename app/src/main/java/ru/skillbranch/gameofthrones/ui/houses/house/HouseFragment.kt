@@ -41,7 +41,7 @@ class HouseFragment : Fragment() {
 
         adapter.onCharacterItemClickListener = {
             findNavController().navigate(
-                HousesFragmentDirections.actionHousesFragmentToCharacterFragment(it)
+                HousesFragmentDirections.actionHousesFragmentToCharacterFragment(it.id)
             )
         }
 

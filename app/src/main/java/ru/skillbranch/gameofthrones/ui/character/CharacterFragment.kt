@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MediatorLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
@@ -66,31 +67,41 @@ class CharacterFragment : Fragment() {
             binding.description.born.text = it.born
             binding.description.titles.text = it.titles.joinToString(separator = "\n")
             binding.description.aliases.text = it.aliases.joinToString(separator = "\n")
-            binding.description.btnFather.isGone = it.father == null
-            binding.description.lblFather.isGone = it.father == null
-            if (it.father != null) {
-                binding.description.btnFather.text = it.father.name.toUpperCase(Locale.ROOT)
+
+            // Father button
+            val father = it.father
+            binding.description.btnFather.isGone = father == null
+            binding.description.lblFather.isGone = father == null
+            if (father != null) {
+                binding.description.btnFather.text = father.name.toUpperCase(Locale.ROOT)
                 binding.description.btnFather.background.setColorFilter(
                     resources.getColor(housePrimaryColor),
                     PorterDuff.Mode.MULTIPLY
                 )
+                binding.description.btnFather.setOnClickListener {
+                    findNavController().navigate(CharacterFragmentDirections
+                        .actionCharacterFragmentSelf(father.id))
+                }
             }
 
-            binding.description.btnMother.isGone = it.mother == null
-            binding.description.lblMother.isGone = it.mother == null
-            if (it.mother != null) {
-                binding.description.btnMother.text = it.mother.name.toUpperCase(Locale.ROOT)
+            // Mother button
+            val mother = it.mother
+            binding.description.btnMother.isGone = mother == null
+            binding.description.lblMother.isGone = mother == null
+            if (mother != null) {
+                binding.description.btnMother.text = mother.name.toUpperCase(Locale.ROOT)
                 binding.description.btnMother.background.setColorFilter(
                     resources.getColor(housePrimaryColor),
                     PorterDuff.Mode.MULTIPLY
                 )
+                binding.description.btnMother.setOnClickListener {
+                    findNavController().navigate(CharacterFragmentDirections
+                        .actionCharacterFragmentSelf(mother.id))
+                }
             }
-            binding.description.btnMother.setBackgroundColor(
-                context?.resources?.getColor(housePrimaryColor) ?: 0
-            )
         }
 
-        RootRepository.findCharacterFullById(args.characterItem.id) {
+        RootRepository.findCharacterFullById(args.characterId) {
             characterFull.postValue(it)
         }
     }

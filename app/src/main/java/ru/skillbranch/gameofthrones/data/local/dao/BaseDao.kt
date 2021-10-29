@@ -9,7 +9,10 @@ import androidx.sqlite.db.SupportSQLiteQuery
 abstract class BaseDao<T>(private val tableName: String) {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertAll(objects: List<T>)
+    abstract fun insertAll(list: List<T>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insert(data: T)
 
     @RawQuery
     protected abstract fun getAll(query: SupportSQLiteQuery): List<T>
