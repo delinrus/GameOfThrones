@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.navigation.fragment.navArgs
-import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
-import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentCharacterBinding
 import ru.skillbranch.gameofthrones.repositories.RootRepository
@@ -57,10 +53,14 @@ class CharacterFragment : Fragment() {
 
             binding.houseCoatOfArms.setImageResource(houseType.coatOfArmsRes)
 
-            binding.description.decImg1.imageTintList = context?.getColorStateList(housePrimaryColor)
-            binding.description.decImg2.imageTintList = context?.getColorStateList(housePrimaryColor)
-            binding.description.decImg3.imageTintList = context?.getColorStateList(housePrimaryColor)
-            binding.description.decImg4.imageTintList = context?.getColorStateList(housePrimaryColor)
+            binding.description.decImg1.imageTintList =
+                context?.getColorStateList(housePrimaryColor)
+            binding.description.decImg2.imageTintList =
+                context?.getColorStateList(housePrimaryColor)
+            binding.description.decImg3.imageTintList =
+                context?.getColorStateList(housePrimaryColor)
+            binding.description.decImg4.imageTintList =
+                context?.getColorStateList(housePrimaryColor)
 
             binding.description.words.text = it.words
             binding.description.born.text = it.born
