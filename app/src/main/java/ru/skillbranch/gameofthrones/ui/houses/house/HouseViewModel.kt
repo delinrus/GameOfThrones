@@ -27,8 +27,8 @@ class HouseViewModel : ViewModel() {
     fun loadCharactersList(houseType: HouseType) {
         if (this.houseType == null || this.houseType != houseType) {
             this.houseType = houseType
-            RootRepository.findCharactersByHouseName(houseType.shortName) {
-                _fullCharacterList.postValue(it)
+            RootRepository.findCharactersByHouseName(houseType.shortName) { list ->
+                _fullCharacterList.postValue(list.sortedBy { it.name })
             }
         }
     }
