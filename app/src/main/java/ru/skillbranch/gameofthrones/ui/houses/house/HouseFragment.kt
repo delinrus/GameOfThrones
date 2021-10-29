@@ -1,15 +1,19 @@
 package ru.skillbranch.gameofthrones.ui.houses.house
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
+import ru.skillbranch.gameofthrones.extensions.hideKeyboard
 import ru.skillbranch.gameofthrones.ui.houses.HousesFragmentDirections
 
 
@@ -40,6 +44,7 @@ class HouseFragment : Fragment() {
         recyclerView.adapter = adapter
 
         adapter.onCharacterItemClickListener = {
+            context?.hideKeyboard(requireView())
             findNavController().navigate(
                 HousesFragmentDirections.actionHousesFragmentToCharacterFragment(it.id)
             )
