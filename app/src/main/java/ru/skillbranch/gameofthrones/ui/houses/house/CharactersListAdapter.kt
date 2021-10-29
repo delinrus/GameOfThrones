@@ -37,7 +37,7 @@ class CharactersListAdapter(val houseType: HouseType) :
             val name = character.name
             characterName.text = if (name.isNotBlank()) name else "Information is unknown"
 
-            houseLogo.setImageResource(houseType.imageRes)
+            houseLogo.setImageResource(houseType.iconRes)
         }
 
         holder.binding.root.setOnClickListener {

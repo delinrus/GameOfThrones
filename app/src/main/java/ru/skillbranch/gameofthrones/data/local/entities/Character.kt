@@ -36,8 +36,8 @@ data class Character(
 
     fun toCharacterFull(
         words: String,
-        father: RelativeCharacter,
-        mother: RelativeCharacter
+        father: RelativeCharacter?,
+        mother: RelativeCharacter?
     ) = CharacterFull(
         id = id,
         name = name,

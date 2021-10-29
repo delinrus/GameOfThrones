@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="ru.skillbranch.gameofthrones.ui.houses.character.CharacterFragment"
+        android:name="ru.skillbranch.gameofthrones.ui.character.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" >
         <argument

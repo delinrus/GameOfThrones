@@ -1,131 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
-    <ImageView
-        android:id="@+id/decImg1"
-        style="@style/DecorIcon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lblWords"
-        app:tint="@color/stark_dark"
-        tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/decImg1"
+            style="@style/DecorIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lblWords"
+            app:tint="@color/stark_dark"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/lblWords"
-        style="@style/DescriptionHeader"
-        android:layout_marginStart="8dp"
-        android:text="@string/words"
-        app:layout_constraintStart_toEndOf="@+id/decImg1"
-        app:layout_constraintTop_toTopOf="@+id/words" />
+        <TextView
+            android:id="@+id/lblWords"
+            style="@style/DescriptionHeader"
+            android:layout_marginStart="8dp"
+            android:text="@string/words"
+            app:layout_constraintStart_toEndOf="@+id/decImg1"
+            app:layout_constraintTop_toTopOf="@+id/words" />
 
-    <TextView
-        android:id="@+id/words"
-        style="@style/DescriptionText"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Our Sun Shines Bright" />
+        <TextView
+            android:id="@+id/words"
+            style="@style/DescriptionText"
+            android:layout_marginStart="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Our Sun Shines Bright" />
 
-    <ImageView
-        android:id="@+id/decImg2"
-        style="@style/DecorIcon"
-        app:layout_constraintStart_toStartOf="@+id/decImg1"
-        app:layout_constraintTop_toTopOf="@+id/lblBorn"
-        app:tint="@color/stark_dark"
-        tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/decImg2"
+            style="@style/DecorIcon"
+            app:layout_constraintStart_toStartOf="@+id/decImg1"
+            app:layout_constraintTop_toTopOf="@+id/lblBorn"
+            app:tint="@color/stark_dark"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/lblBorn"
-        style="@style/DescriptionHeader"
-        android:text="@string/born"
-        app:layout_constraintStart_toStartOf="@+id/lblWords"
-        app:layout_constraintTop_toTopOf="@+id/born" />
+        <TextView
+            android:id="@+id/lblBorn"
+            style="@style/DescriptionHeader"
+            android:text="@string/born"
+            app:layout_constraintStart_toStartOf="@+id/lblWords"
+            app:layout_constraintTop_toTopOf="@+id/born" />
 
-    <TextView
-        android:id="@+id/born"
-        style="@style/DescriptionText"
-        app:layout_constraintStart_toStartOf="@+id/words"
-        app:layout_constraintTop_toBottomOf="@+id/words"
-        tools:text="In 283 AC" />
+        <TextView
+            android:id="@+id/born"
+            style="@style/DescriptionText"
+            app:layout_constraintStart_toStartOf="@+id/words"
+            app:layout_constraintTop_toBottomOf="@+id/words"
+            tools:text="In 283 AC" />
 
-    <ImageView
-        android:id="@+id/decImg3"
-        style="@style/DecorIcon"
-        app:layout_constraintStart_toStartOf="@+id/decImg2"
-        app:layout_constraintTop_toTopOf="@+id/lblTitles"
-        app:tint="@color/stark_dark"
-        tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/decImg3"
+            style="@style/DecorIcon"
+            app:layout_constraintStart_toStartOf="@+id/decImg2"
+            app:layout_constraintTop_toTopOf="@+id/lblTitles"
+            app:tint="@color/stark_dark"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/lblTitles"
-        style="@style/DescriptionHeader"
-        android:text="@string/titles"
-        app:layout_constraintStart_toStartOf="@+id/lblBorn"
-        app:layout_constraintTop_toTopOf="@+id/titles" />
+        <TextView
+            android:id="@+id/lblTitles"
+            style="@style/DescriptionHeader"
+            android:text="@string/titles"
+            app:layout_constraintStart_toStartOf="@+id/lblBorn"
+            app:layout_constraintTop_toTopOf="@+id/titles" />
 
-    <TextView
-        android:id="@+id/titles"
-        style="@style/DescriptionText"
-        app:layout_constraintStart_toStartOf="@+id/born"
-        app:layout_constraintTop_toBottomOf="@+id/born"
-        tools:text="Lord Commander of the Night's Watch" />
+        <TextView
+            android:id="@+id/titles"
+            style="@style/DescriptionText"
+            app:layout_constraintStart_toStartOf="@+id/born"
+            app:layout_constraintTop_toBottomOf="@+id/born"
+            tools:text="Lord Commander of the Night's Watch" />
 
-    <ImageView
-        android:id="@+id/decImg4"
-        style="@style/DecorIcon"
-        app:layout_constraintStart_toStartOf="@+id/decImg3"
-        app:layout_constraintTop_toTopOf="@+id/lblAliases"
-        app:tint="@color/stark_dark"
-        tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/decImg4"
+            style="@style/DecorIcon"
+            app:layout_constraintStart_toStartOf="@+id/decImg3"
+            app:layout_constraintTop_toTopOf="@+id/lblAliases"
+            app:tint="@color/stark_dark"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/lblAliases"
-        style="@style/DescriptionHeader"
-        android:text="@string/aliases"
-        app:layout_constraintStart_toStartOf="@+id/lblTitles"
-        app:layout_constraintTop_toTopOf="@+id/aliases" />
+        <TextView
+            android:id="@+id/lblAliases"
+            style="@style/DescriptionHeader"
+            android:text="@string/aliases"
+            app:layout_constraintStart_toStartOf="@+id/lblTitles"
+            app:layout_constraintTop_toTopOf="@+id/aliases" />
 
-    <TextView
-        android:id="@+id/aliases"
-        style="@style/DescriptionText"
-        app:layout_constraintStart_toStartOf="@+id/titles"
-        app:layout_constraintTop_toBottomOf="@+id/titles"
-        tools:text="Ned Stark's Bastard\nThe Snow of Winterfell,\nThe Crow-Com-Over\nThe 999th Lord Commander of the Night's Watch\nThe Bastard of Winterfell\nThe Black Bastard of the Wall\nLord Crow" />
+        <TextView
+            android:id="@+id/aliases"
+            style="@style/DescriptionText"
+            app:layout_constraintStart_toStartOf="@+id/titles"
+            app:layout_constraintTop_toBottomOf="@+id/titles"
+            tools:text="Ned Stark's Bastard\nThe Snow of Winterfell,\nThe Crow-Com-Over\nThe 999th Lord Commander of the Night's Watch\nThe Bastard of Winterfell\nThe Black Bastard of the Wall\nLord Crow" />
 
-    <TextView
-        android:id="@+id/lblFather"
-        style="@style/DescriptionHeader"
-        android:text="@string/father"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFather"
-        app:layout_constraintStart_toStartOf="@+id/lblAliases"
-        app:layout_constraintTop_toTopOf="@+id/btnFather" />
+        <TextView
+            android:id="@+id/lblFather"
+            style="@style/DescriptionHeader"
+            android:text="@string/father"
+            app:layout_constraintBottom_toBottomOf="@+id/btnFather"
+            app:layout_constraintStart_toStartOf="@+id/lblAliases"
+            app:layout_constraintTop_toTopOf="@+id/btnFather" />
 
-    <Button
-        android:id="@+id/btnFather"
-        style="@style/RelativeButton"
-        app:layout_constraintStart_toStartOf="@+id/aliases"
-        app:layout_constraintTop_toBottomOf="@+id/aliases"
-        tools:text="RHAEGAR TARGARYEN" />
+        <Button
+            android:id="@+id/btnFather"
+            style="@style/RelativeButton"
+            app:layout_constraintStart_toStartOf="@+id/aliases"
+            app:layout_constraintTop_toBottomOf="@+id/aliases"
+            tools:text="RHAEGAR TARGARYEN" />
 
-    <TextView
-        android:id="@+id/lblMother"
-        style="@style/DescriptionHeader"
-        android:text="@string/mother"
-        app:layout_constraintBottom_toBottomOf="@+id/btnMother"
-        app:layout_constraintStart_toStartOf="@+id/lblFather"
-        app:layout_constraintTop_toTopOf="@+id/btnMother" />
+        <TextView
+            android:id="@+id/lblMother"
+            style="@style/DescriptionHeader"
+            android:text="@string/mother"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMother"
+            app:layout_constraintStart_toStartOf="@+id/lblFather"
+            app:layout_constraintTop_toTopOf="@+id/btnMother" />
 
-    <Button
-        android:id="@+id/btnMother"
-        style="@style/RelativeButton"
-        app:layout_constraintStart_toStartOf="@+id/btnFather"
-        app:layout_constraintTop_toBottomOf="@+id/btnFather"
-        tools:text="LYANNA STARK" />
+        <Button
+            android:id="@+id/btnMother"
+            style="@style/RelativeButton"
+            app:layout_constraintStart_toStartOf="@+id/btnFather"
+            app:layout_constraintTop_toBottomOf="@+id/btnFather"
+            tools:text="LYANNA STARK" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

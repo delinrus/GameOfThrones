@@ -1,6 +1,5 @@
 package ru.skillbranch.gameofthrones.repositories
 
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
 import ru.skillbranch.gameofthrones.App
@@ -153,8 +152,13 @@ object RootRepository {
         scope.launch {
             val character = db.getCharacterDao().getById(id)
             val house = db.getHouseDao().getById(character.houseId)
-            val father = db.getCharacterDao().getById(character.father).toRelativeCharacter()
-            val mother = db.getCharacterDao().getById(character.mother).toRelativeCharacter()
+            val father = if (character.father.isNotBlank())
+                db.getCharacterDao().getById(character.father).toRelativeCharacter()
+            else null
+
+            val mother = if (character.mother.isNotBlank())
+                db.getCharacterDao().getById(character.mother).toRelativeCharacter()
+            else null
             result(character.toCharacterFull(house.words, father, mother))
         }
     }
