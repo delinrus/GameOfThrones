@@ -25,8 +25,8 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val name = view.findViewById<TextView>(R.id.character_name)
-        name.text = args.characterItem.name
+//        val name = view.findViewById<TextView>(R.id.lblWords)
+//        name.text = args.characterItem.name
 
         val toolbar =  view.findViewById<Toolbar>(R.id.toolbar)
         (activity as AppCompatActivity).apply {

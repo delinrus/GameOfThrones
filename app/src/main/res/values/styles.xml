@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<style name="expanded_app_bar" parent="@android:style/TextAppearance.Medium">
-<item name="android:textSize">48sp</item>
-<item name="android:textColor">#ffffff</item>
-<item name="android:textStyle">normal</item>
-</style>
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
-<style name="collapsed_app_bar" parent="@android:style/TextAppearance.Medium">
-<item name="android:textSize">20sp</item>
-<item name="android:textColor">#ffffff</item>
-<item name="android:textStyle">normal</item>
-</style>
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
+    <style name="DescriptionText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxWidth">220dp</item>
+        <item name="android:textColor">@color/color_gray</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="DescriptionHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_gray_dark</item>
+    </style>
+
+    <style name="DecorIcon">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:src">@drawable/ic_icon_decor</item>
+    </style>
+
+    <style name="RelativeButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:backgroundTint">@color/stark_primary</item>
+        <item name="android:textColor">@color/color_gray_light</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>
