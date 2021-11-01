@@ -8,23 +8,27 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentHousesBinding
-import ru.skillbranch.gameofthrones.ui.houses.house.HouseViewModel
+import ru.skillbranch.gameofthrones.ui.houses.house.HouseFragment
 
 
 class HousesFragment : Fragment() {
 
     private lateinit var myContext: FragmentActivity
 
-    private val viewModel: HouseViewModel by activityViewModels()
-
     private var _binding: FragmentHousesBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentHousesBinding == null")
+
+    private lateinit var pageAdapter: HousePageAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pageAdapter = HousePageAdapter(childFragmentManager)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,23 +50,26 @@ class HousesFragment : Fragment() {
         val searchView = (menuItem.actionView as SearchView)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.handleSearch(query)
+                getCurrentHouseFragment()?.handleSearch(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.handleSearch(newText)
+                getCurrentHouseFragment()?.handleSearch(newText)
                 return true
             }
         })
-
-        val pageAdapter = HousePageAdapter(childFragmentManager)
         binding.pager.adapter = pageAdapter
         binding.tabs.setupWithViewPager(binding.pager)
         val pageListener = PagerListener()
         binding.pager.addOnPageChangeListener(pageListener)
         pageListener.onPageSelected(0)
     }
+
+    private fun getCurrentHouseFragment(): HouseFragment? {
+        return pageAdapter.getRegisteredFragment(binding.pager.currentItem)
+    }
+
 
     inner class PagerListener : ViewPager.OnPageChangeListener {
         override fun onPageScrolled(
@@ -76,7 +83,6 @@ class HousesFragment : Fragment() {
             binding.appBarLayout.setBackgroundColor(
                 context?.getColor(HouseType.values()[position].colorPrimaryRes) ?: 0
             )
-            viewModel.loadCharactersList(HouseType.values()[position])
         }
 
         override fun onPageScrollStateChanged(state: Int) {

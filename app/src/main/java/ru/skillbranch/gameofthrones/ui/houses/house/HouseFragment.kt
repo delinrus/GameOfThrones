@@ -1,14 +1,11 @@
 package ru.skillbranch.gameofthrones.ui.houses.house
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
@@ -19,7 +16,7 @@ import ru.skillbranch.gameofthrones.ui.houses.HousesFragmentDirections
 
 class HouseFragment : Fragment() {
 
-    private val viewModel: HouseViewModel by activityViewModels()
+    private lateinit var viewModel: HouseViewModel
     private lateinit var house: HouseType
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +33,8 @@ class HouseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[HouseViewModel::class.java]
+        viewModel.loadCharactersList(house)
         prepareRecyclerView(view.findViewById(R.id.recycler))
     }
 
@@ -53,6 +52,10 @@ class HouseFragment : Fragment() {
         viewModel.characterList.observe(viewLifecycleOwner) {
             adapter.characters = it
         }
+    }
+
+    fun handleSearch(query: String?) {
+        viewModel.handleSearch(query)
     }
 
     private fun parseParams() {
