@@ -9,7 +9,7 @@ import ru.skillbranch.gameofthrones.ui.houses.house.HouseFragment
 class HousePageAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val registeredFragments = mutableListOf<HouseFragment>()
+    private val registeredFragments = mutableMapOf <Int, HouseFragment>()
 
     override fun getCount(): Int {
         return HouseType.values().size
@@ -17,7 +17,7 @@ class HousePageAdapter(fm: FragmentManager) :
 
     override fun getItem(position: Int): Fragment {
         val fragment = HouseFragment.newInstance(HouseType.values()[position])
-        registeredFragments.add(position, fragment)
+        registeredFragments[position] =  fragment
         return fragment
     }
 
