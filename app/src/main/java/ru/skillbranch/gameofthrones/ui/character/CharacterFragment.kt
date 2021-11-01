@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentCharacterBinding
@@ -99,6 +100,10 @@ class CharacterFragment : Fragment() {
                     findNavController().navigate(CharacterFragmentDirections
                         .actionCharacterFragmentSelf(mother.id))
                 }
+            }
+
+            if (it.died.isNotBlank()) {
+                Snackbar.make(view, "Died " + it.died, Snackbar.LENGTH_INDEFINITE).show()
             }
         }
 
