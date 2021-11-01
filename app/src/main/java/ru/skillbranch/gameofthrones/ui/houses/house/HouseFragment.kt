@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.gameofthrones.R
@@ -33,8 +33,8 @@ class HouseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[HouseViewModel::class.java]
-        viewModel.loadCharactersList(house)
+        viewModel = ViewModelProviders.of(this, HouseViewModel.ModelFactory(house))
+            .get(HouseViewModel::class.java)
         prepareRecyclerView(view.findViewById(R.id.recycler))
     }
 

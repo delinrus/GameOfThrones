@@ -1,14 +1,12 @@
 package ru.skillbranch.gameofthrones.ui.houses.house
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.repositories.RootRepository
+import java.lang.IllegalArgumentException
 
-class HouseViewModel : ViewModel() {
+class HouseViewModel(val houseType: HouseType) : ViewModel() {
 
     private val _fullCharacterList = MutableLiveData<List<CharacterItem>>()
 
@@ -16,20 +14,16 @@ class HouseViewModel : ViewModel() {
     val characterList: LiveData<List<CharacterItem>>
         get() = _characterList
 
-    private var houseType: HouseType? = null
-
     init {
         _characterList.addSource(_fullCharacterList) {
             _characterList.postValue(it)
         }
+        loadCharactersList()
     }
 
-    fun loadCharactersList(houseType: HouseType) {
-        if (this.houseType == null || this.houseType != houseType) {
-            this.houseType = houseType
-            RootRepository.findCharactersByHouseName(houseType.shortName) { list ->
-                _fullCharacterList.postValue(list.sortedBy { it.name })
-            }
+    private fun loadCharactersList() {
+        RootRepository.findCharactersByHouseName(houseType.shortName) { list ->
+            _fullCharacterList.postValue(list.sortedBy { it.name })
         }
     }
 
@@ -38,5 +32,14 @@ class HouseViewModel : ViewModel() {
         _characterList.postValue(_fullCharacterList.value?.filter {
             it.name.contains(query, true)
         })
+    }
+
+    class ModelFactory(private val houseType: HouseType) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass == (HouseViewModel::class.java)) {
+                return HouseViewModel(houseType) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 }
