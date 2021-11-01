@@ -1,18 +1,24 @@
 package ru.skillbranch.gameofthrones.ui.houses
 
 import android.app.Activity
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentHousesBinding
 import ru.skillbranch.gameofthrones.ui.houses.house.HouseFragment
+import kotlin.math.hypot
+import kotlin.math.max
 
 
 class HousesFragment : Fragment() {
@@ -61,31 +67,61 @@ class HousesFragment : Fragment() {
         })
         binding.pager.adapter = pageAdapter
         binding.tabs.setupWithViewPager(binding.pager)
-        val pageListener = PagerListener()
-        binding.pager.addOnPageChangeListener(pageListener)
-        pageListener.onPageSelected(0)
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val position = tab.position
+                val rect = Rect()
+                val tabView = tab.view as View
+
+                tabView.postDelayed(
+                    {
+                        tabView.getGlobalVisibleRect(rect)
+                        animateAppbarReveal(position, rect.centerX(), rect.centerY())
+                    },
+                    300
+                )
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
     }
 
-    private fun getCurrentHouseFragment(): HouseFragment? {
-        return pageAdapter.getRegisteredFragment(binding.pager.currentItem)
-    }
+    private fun animateAppbarReveal(position: Int, centerX: Int, centerY: Int) {
+        val endRadius = max(
+            hypot(centerX.toDouble(), centerY.toDouble()),
+            hypot(binding.appBarLayout.width.toDouble() - centerX.toDouble(), centerY.toDouble())
+        )
+        binding.revealView.setBackgroundColor(
+            context?.getColor(HouseType.values()[position].colorPrimaryRes) ?: 0
+        )
+        val anim = ViewAnimationUtils.createCircularReveal(
+            binding.revealView,
+            centerX,
+            centerY,
+            0f,
+            endRadius.toFloat()
+        )
 
-
-    inner class PagerListener : ViewPager.OnPageChangeListener {
-        override fun onPageScrolled(
-            position: Int,
-            positionOffset: Float,
-            positionOffsetPixels: Int
-        ) {
+        anim.doOnStart {
+            binding.revealView.visibility = View.VISIBLE
         }
 
-        override fun onPageSelected(position: Int) {
+        anim.doOnEnd {
+            binding.revealView.visibility = View.INVISIBLE
             binding.appBarLayout.setBackgroundColor(
                 context?.getColor(HouseType.values()[position].colorPrimaryRes) ?: 0
             )
         }
+        anim.start()
+    }
 
-        override fun onPageScrollStateChanged(state: Int) {
-        }
+
+    private fun getCurrentHouseFragment(): HouseFragment? {
+        return pageAdapter.getRegisteredFragment(binding.pager.currentItem)
     }
 }
