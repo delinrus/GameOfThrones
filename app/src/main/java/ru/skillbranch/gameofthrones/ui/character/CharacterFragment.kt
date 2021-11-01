@@ -46,7 +46,8 @@ class CharacterFragment : Fragment() {
 
         characterFull.observe(viewLifecycleOwner) {
             val houseType = HouseType.valueOf(it.house.toUpperCase(Locale.ROOT))
-            val housePrimaryColor = houseType.colorRes
+            val housePrimaryColor = houseType.colorPrimaryRes
+            val houseAccentColor = houseType.colorAccentRes
 
             binding.collapsingToolBar.title = it.name
 
@@ -55,13 +56,13 @@ class CharacterFragment : Fragment() {
             binding.houseCoatOfArms.setImageResource(houseType.coatOfArmsRes)
 
             binding.description.decImg1.imageTintList =
-                context?.getColorStateList(housePrimaryColor)
+                context?.getColorStateList(houseAccentColor)
             binding.description.decImg2.imageTintList =
-                context?.getColorStateList(housePrimaryColor)
+                context?.getColorStateList(houseAccentColor)
             binding.description.decImg3.imageTintList =
-                context?.getColorStateList(housePrimaryColor)
+                context?.getColorStateList(houseAccentColor)
             binding.description.decImg4.imageTintList =
-                context?.getColorStateList(housePrimaryColor)
+                context?.getColorStateList(houseAccentColor)
 
             binding.description.words.text = it.words
             binding.description.born.text = it.born

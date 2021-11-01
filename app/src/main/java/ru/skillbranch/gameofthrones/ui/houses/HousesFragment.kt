@@ -74,7 +74,7 @@ class HousesFragment : Fragment() {
 
         override fun onPageSelected(position: Int) {
             binding.appBarLayout.setBackgroundColor(
-                context?.getColor(HouseType.values()[position].colorRes) ?: 0
+                context?.getColor(HouseType.values()[position].colorPrimaryRes) ?: 0
             )
             viewModel.loadCharactersList(HouseType.values()[position])
         }
