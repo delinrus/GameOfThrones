@@ -31,9 +31,12 @@ class HousesFragment : Fragment() {
 
     private lateinit var pageAdapter: HousePageAdapter
 
+    private var currentPosition: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageAdapter = HousePageAdapter(childFragmentManager)
+        currentPosition = 0
     }
 
     override fun onCreateView(
@@ -65,21 +68,27 @@ class HousesFragment : Fragment() {
                 return true
             }
         })
+
+        binding.appBarLayout.setBackgroundColor(
+            context?.getColor(HouseType.values()[currentPosition].colorPrimaryRes) ?: 0
+        )
         binding.pager.adapter = pageAdapter
         binding.tabs.setupWithViewPager(binding.pager)
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
-                val rect = Rect()
-                val tabView = tab.view as View
+                if (position != currentPosition) {
+                    val rect = Rect()
+                    val tabView = tab.view as View
 
-                tabView.postDelayed(
-                    {
-                        tabView.getGlobalVisibleRect(rect)
-                        animateAppbarReveal(position, rect.centerX(), rect.centerY())
-                    },
-                    300
-                )
+                    tabView.postDelayed(
+                        {
+                            tabView.getGlobalVisibleRect(rect)
+                            animateAppbarReveal(position, rect.centerX(), rect.centerY())
+                        },
+                        300
+                    )
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -116,6 +125,7 @@ class HousesFragment : Fragment() {
             binding.appBarLayout.setBackgroundColor(
                 context?.getColor(HouseType.values()[position].colorPrimaryRes) ?: 0
             )
+            currentPosition = position
         }
         anim.start()
     }
