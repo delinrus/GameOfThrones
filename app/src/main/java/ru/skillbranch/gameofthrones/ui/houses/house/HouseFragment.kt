@@ -2,8 +2,10 @@ package ru.skillbranch.gameofthrones.ui.houses.house
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -21,7 +23,25 @@ class HouseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         parseParams()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = (menuItem.actionView as SearchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                handleSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                handleSearch(newText)
+                return true
+            }
+        })
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onCreateView(
@@ -54,7 +74,7 @@ class HouseFragment : Fragment() {
         }
     }
 
-    fun handleSearch(query: String?) {
+    private fun handleSearch(query: String?) {
         viewModel.handleSearch(query)
     }
 

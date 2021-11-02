@@ -3,10 +3,7 @@ package ru.skillbranch.gameofthrones.ui.houses
 import android.app.Activity
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewAnimationUtils
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
@@ -16,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.HouseType
 import ru.skillbranch.gameofthrones.databinding.FragmentHousesBinding
+import ru.skillbranch.gameofthrones.ui.RootActivity
 import ru.skillbranch.gameofthrones.ui.houses.house.HouseFragment
 import kotlin.math.hypot
 import kotlin.math.max
@@ -35,8 +33,17 @@ class HousesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true) // create search menu
         pageAdapter = HousePageAdapter(childFragmentManager)
         currentPosition = 0
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        with(menu.findItem(R.id.action_search)?.actionView as SearchView) {
+            queryHint = "Search character"
+        }
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreateView(
@@ -54,21 +61,7 @@ class HousesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.inflateMenu(R.menu.menu_search)
-        val menuItem = binding.toolbar.menu.findItem(R.id.action_search)
-        val searchView = (menuItem.actionView as SearchView)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                getCurrentHouseFragment()?.handleSearch(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                getCurrentHouseFragment()?.handleSearch(newText)
-                return true
-            }
-        })
-
+        (requireActivity() as RootActivity).setSupportActionBar(binding.toolbar)
         binding.appBarLayout.setBackgroundColor(
             context?.getColor(HouseType.values()[currentPosition].colorPrimaryRes) ?: 0
         )
@@ -128,10 +121,5 @@ class HousesFragment : Fragment() {
             currentPosition = position
         }
         anim.start()
-    }
-
-
-    private fun getCurrentHouseFragment(): HouseFragment? {
-        return pageAdapter.getRegisteredFragment(binding.pager.currentItem)
     }
 }

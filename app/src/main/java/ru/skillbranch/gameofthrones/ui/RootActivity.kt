@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.ui.RootViewModel.SynchronizationResult
 
 class RootActivity : AppCompatActivity() {
 
@@ -16,6 +16,7 @@ class RootActivity : AppCompatActivity() {
     private lateinit var containerView: FragmentContainerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         viewModel = ViewModelProvider(this).get(RootViewModel::class.java)
@@ -29,12 +30,12 @@ class RootActivity : AppCompatActivity() {
     private fun observeSynchronization() {
         viewModel.isDataSynchronized.observe(this) {
             when (it?.getContentIfNotHandled()) {
-                RootViewModel.SynchronizationResult.FINISHED -> {
+                SynchronizationResult.FINISHED -> {
                     findNavController(this, R.id.nav_host_fragment).navigate(
                         SplashFragmentDirections.actionSplashFragmentToHousesFragment()
                     )
                 }
-                RootViewModel.SynchronizationResult.NO_CONNECTION -> {
+                SynchronizationResult.NO_CONNECTION -> {
                     Snackbar.make(
                         containerView,
                         resources.getString(R.string.no_connection_msg),
